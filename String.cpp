@@ -51,3 +51,8 @@ bool String::operator!=(const String &other) const
 {
     return mChars != other.mChars;
 }
+
+void String::clear()
+{
+    mChars.clear();
+}

@@ -46,3 +46,13 @@ TEST_CASE("String comparison", "[string]")
     REQUIRE(hello != empty);
     REQUIRE(goodbye != hello);
 }
+
+TEST_CASE("String emptyness", "[string]")
+{
+    String hello("hello, world");
+    String empty;
+    REQUIRE(hello != empty);
+
+    hello.clear();
+    REQUIRE(hello == empty);
+}

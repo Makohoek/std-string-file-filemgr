@@ -41,6 +41,8 @@ public:
     bool operator==(const String &other) const;
     bool operator!=(const String &other) const;
 
+    void clear();
+
 private:
     std::vector<char> mChars;
 };
