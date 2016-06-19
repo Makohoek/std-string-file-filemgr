@@ -39,10 +39,10 @@ public:
     File(const std::string name);
     virtual ~File();
 
-    void read(std::vector<String> &result);
+    void read(std::vector<String> &result) const;
     void write(std::vector<String> &input);
 
-    size_t size();
+    size_t size() const;
 
     bool operator<(const File &other) const;
     bool operator==(const File &other) const;

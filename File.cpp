@@ -39,7 +39,7 @@ File::File(const std::string name) : mName(name)
 File::~File()
 {}
 
-void File::read(std::vector<String> &result)
+void File::read(std::vector<String> &result) const
 {
     std::fstream myStream;
     myStream.open(mName, std::ios::in);
@@ -65,7 +65,7 @@ void File::write(std::vector<String> &input)
     myStream.close();
 }
 
-size_t File::size()
+size_t File::size() const
 {
     size_t totalSize = 0;
     std::vector<String> content;
