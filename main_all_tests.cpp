@@ -228,3 +228,28 @@ TEST_CASE("find unknown element in FileSystem", "[filesystem]")
             fileSystem.findByName("examples/unexistent.txt", foundFile),
             std::domain_error);
 }
+
+TEST_CASE("printing the size for each file", "[filesystem]")
+{
+    std::vector<String> helloText {
+        "Hello",
+        "Hallo",
+    };
+    File helloFile("examples/hello.txt");
+    helloFile.write(helloText);
+
+    std::vector<String> loremText {
+        "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
+        "tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At",
+        "vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,",
+        "no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+    };
+    File loremFile("examples/lorem_two.txt");
+    loremFile.write(loremText);
+
+    FileSystem fileSystem;
+    fileSystem.add(helloFile);
+    fileSystem.add(loremFile);
+
+    fileSystem.printEachFileSize();
+}

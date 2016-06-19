@@ -31,6 +31,7 @@
 #include "File.hpp"
 
 #include <set>
+#include <iostream>
 
 FileSystem::FileSystem()
 {}
@@ -50,4 +51,12 @@ void FileSystem::findByName(const std::string name, File& result) throw(std::dom
         throw std::domain_error("File does not exist in filesystem");
 
     result = *it;
+}
+
+void FileSystem::printEachFileSize()
+{
+    for (auto file = mFiles.begin(); file != mFiles.end(); file++)
+    {
+        std::cout << file->getName() << ":" << file->size() << " chars" << std::endl;
+    }
 }
