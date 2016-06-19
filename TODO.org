@@ -1,11 +1,11 @@
-* String implementation [5/8]
+* String implementation [6/8]
   - [X] create
   - [X] clear
   - [X] append
   - [ ] convert to int
   - [X] compare
   - [X] copy
-  - [ ] move
+  - [X] move
   - [ ] iterate over chars
 * File reader writer [0/2]
   - [ ] Write String to file, asynchronously

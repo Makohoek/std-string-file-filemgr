@@ -42,6 +42,9 @@ String::String(const char *const chars) : mChars()
 String::String(const String &other) : mChars(other.mChars)
 {}
 
+String::String(String&& other): mChars(std::move(other.mChars))
+{}
+
 String::~String()
 {}
 

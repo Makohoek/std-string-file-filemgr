@@ -85,3 +85,16 @@ TEST_CASE("String copy ctor", "[string]")
     helloCopy.clear();
     REQUIRE(hello != helloCopy);
 }
+
+TEST_CASE("String move ctor", "[string]")
+{
+    String hello("hello");
+    String helloCopy("hello");
+    String empty;
+    REQUIRE(hello == helloCopy);
+
+    String moveDestination(std::move(helloCopy));
+    REQUIRE(hello != helloCopy);
+    REQUIRE(empty == helloCopy);
+    REQUIRE(moveDestination == hello);
+}
