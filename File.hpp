@@ -43,6 +43,7 @@ public:
     void write(std::vector<String> &input);
 
     size_t size() const;
+    std::string getName() const;
 
     bool operator<(const File &other) const;
     bool operator==(const File &other) const;

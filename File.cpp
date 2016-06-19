@@ -65,6 +65,11 @@ void File::write(std::vector<String> &input)
     myStream.close();
 }
 
+std::string File::getName() const
+{
+    return mName;
+}
+
 size_t File::size() const
 {
     size_t totalSize = 0;
