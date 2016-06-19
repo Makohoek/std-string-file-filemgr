@@ -173,3 +173,27 @@ TEST_CASE("write a file", "[file]")
     myFile.write(fileContent);
     myFile.close();
 }
+
+TEST_CASE("write and read a file", "[file]")
+{
+    std::vector<String> fileContent {
+        "Hello, world",
+        "Hallo, wereld",
+        "Bonjour, le monde",
+    };
+    std::vector<String> result;
+    File myFile("examples/hello.txt");
+    myFile.open(std::ios::out);
+    myFile.write(fileContent);
+    myFile.close();
+
+    myFile.open(std::ios::in);
+    myFile.read(result);
+    myFile.close();
+
+    unsigned int index = 0;
+    for (auto line = result.begin(); line != result.end(); line++) {
+        REQUIRE(*line == fileContent[index]);
+        index++;
+    }
+}
