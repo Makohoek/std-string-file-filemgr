@@ -1,0 +1,15 @@
+* String implementation [0/8]
+  - [ ] create
+  - [ ] clear
+  - [ ] append
+  - [ ] convert to int
+  - [ ] compare
+  - [ ] copy
+  - [ ] move
+  - [ ] iterate over chars
+* File reader writer [0/2]
+  - [ ] Write String to file, asynchronously
+  - [ ] Read file to String, asynchronously
+* File system data structure [0/2]
+  - [ ] find any file by name in the file system
+  - [ ] support printing the size of each file
