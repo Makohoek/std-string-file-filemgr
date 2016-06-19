@@ -40,6 +40,11 @@ File::~File()
     close();
 }
 
+File::File(const File &other) :
+    mName(other.mName),
+    mStream(other.mStream)
+{}
+
 void File::open(std::ios_base::openmode mode)
 {
     mStream.open(mName, mode);
