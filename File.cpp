@@ -46,8 +46,9 @@ void File::read(std::vector<String> &result) const
     std::string line;
     while (myStream.good()) {
         getline(myStream, line);
-        if (!line.empty())
+        if (!line.empty()) {
             result.push_back(String(line.c_str()));
+        }
     }
     myStream.close();
 }

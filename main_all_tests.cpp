@@ -225,8 +225,8 @@ TEST_CASE("find unknown element in FileSystem", "[filesystem]")
     fileSystem.add(file);
     File foundFile("temp");
     REQUIRE_THROWS_AS(
-            fileSystem.findByName("examples/unexistent.txt", foundFile),
-            std::domain_error);
+        fileSystem.findByName("examples/unexistent.txt", foundFile),
+        std::domain_error);
 }
 
 TEST_CASE("printing the size for each file", "[filesystem]")

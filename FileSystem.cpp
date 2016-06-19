@@ -44,19 +44,19 @@ void FileSystem::add(File &f)
     mFiles.insert(f);
 }
 
-void FileSystem::findByName(const std::string name, File& result) throw(std::domain_error)
+void FileSystem::findByName(const std::string name, File &result) throw(std::domain_error)
 {
     auto it = mFiles.find(name);
-    if (it == mFiles.end())
+    if (it == mFiles.end()) {
         throw std::domain_error("File does not exist in filesystem");
+    }
 
     result = *it;
 }
 
 void FileSystem::printEachFileSize()
 {
-    for (auto file = mFiles.begin(); file != mFiles.end(); file++)
-    {
+    for (auto file = mFiles.begin(); file != mFiles.end(); file++) {
         std::cout << file->getName() << ":" << file->size() << " chars" << std::endl;
     }
 }

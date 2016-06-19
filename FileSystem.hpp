@@ -40,8 +40,8 @@ public:
     FileSystem();
     virtual ~FileSystem();
 
-    void add(File& f);
-    void findByName(const std::string name, File& result) throw(std::domain_error);
+    void add(File &f);
+    void findByName(const std::string name, File &result) throw(std::domain_error);
     void printEachFileSize();
 
 private:
