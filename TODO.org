@@ -7,9 +7,9 @@
   - [X] copy
   - [X] move
   - [X] iterate over chars
-* File reader writer [0/2]
-  - [ ] Write String to file, asynchronously
-  - [ ] Read file to String, asynchronously
+* File reader writer [2/2]
+  - [X] Write String to file, asynchronously
+  - [X] Read file to String, asynchronously
 * File system data structure [0/2]
   - [ ] find any file by name in the file system
   - [ ] support printing the size of each file
