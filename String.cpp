@@ -27,22 +27,27 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main()
-#include "external/Catch/include/catch.hpp"
-
 #include "String.hpp"
 
-TEST_CASE("String comparison", "[string]")
-{
-    String hello("hello, world");
-    String hello_bis("hello, world");
-    String empty;
-    String empty_bis;
-    char *my_test_str = "goodbye, world";
-    String goodbye(my_test_str);
+String::String() : mChars()
+{}
 
-    REQUIRE(hello == hello_bis);
-    REQUIRE(empty == empty_bis);
-    REQUIRE(hello != empty);
-    REQUIRE(goodbye != hello);
+String::String(const char *const chars) : mChars()
+{
+    for (const char *c = chars; c != NULL && *c != '\0'; c++) {
+        mChars.push_back(*c);
+    }
+}
+
+String::~String()
+{}
+
+bool String::operator==(const String &other) const
+{
+    return mChars == other.mChars;
+}
+
+bool String::operator!=(const String &other) const
+{
+    return mChars != other.mChars;
 }

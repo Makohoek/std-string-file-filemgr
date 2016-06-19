@@ -1,9 +1,9 @@
-* String implementation [0/8]
-  - [ ] create
+* String implementation [2/8]
+  - [X] create
   - [ ] clear
   - [ ] append
   - [ ] convert to int
-  - [ ] compare
+  - [X] compare
   - [ ] copy
   - [ ] move
   - [ ] iterate over chars

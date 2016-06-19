@@ -27,22 +27,20 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main()
-#include "external/Catch/include/catch.hpp"
+#pragma once
 
-#include "String.hpp"
+#include <Vector>
 
-TEST_CASE("String comparison", "[string]")
+class String
 {
-    String hello("hello, world");
-    String hello_bis("hello, world");
-    String empty;
-    String empty_bis;
-    char *my_test_str = "goodbye, world";
-    String goodbye(my_test_str);
+public:
+    String();
+    String(const char *const chars);
+    virtual ~String();
 
-    REQUIRE(hello == hello_bis);
-    REQUIRE(empty == empty_bis);
-    REQUIRE(hello != empty);
-    REQUIRE(goodbye != hello);
-}
+    bool operator==(const String &other) const;
+    bool operator!=(const String &other) const;
+
+private:
+    std::vector<char> mChars;
+};
