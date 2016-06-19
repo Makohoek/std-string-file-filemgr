@@ -36,41 +36,30 @@ File::File(const char *const name) : mName(name)
 {}
 
 File::~File()
-{
-    close();
-}
-
-File::File(const File &other) :
-    mName(other.mName),
-    mStream(other.mStream)
 {}
-
-void File::open(std::ios_base::openmode mode)
-{
-    mStream.open(mName, mode);
-}
-
-void File::close()
-{
-    mStream.close();
-}
 
 void File::read(std::vector<String> &result)
 {
+    std::fstream myStream;
+    myStream.open(mName, std::ios::in);
     std::string line;
-    while (mStream.good()) {
-        getline(mStream, line);
+    while (myStream.good()) {
+        getline(myStream, line);
         if (!line.empty())
             result.push_back(String(line.c_str()));
     }
+    myStream.close();
 }
 
 void File::write(std::vector<String> &input)
 {
+    std::fstream myStream;
+    myStream.open(mName, std::ios::out);
     for (auto line = input.begin(); line != input.end(); line++) {
         for (auto c = line->begin(); c != line->end(); c++) {
-            mStream << *c;
+            myStream << *c;
         }
-        mStream << std::endl;
+        myStream << std::endl;
     }
+    myStream.close();
 }

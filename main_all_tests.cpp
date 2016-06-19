@@ -131,21 +131,14 @@ TEST_CASE("String to int conversion", "[string]")
 TEST_CASE("Open/close files", "[file]")
 {
     File myFile("examples/lorem.txt");
-    myFile.open(std::ios::in);
-    myFile.close();
-
     File myNonExistentFile("examples/unknown.txt");
-    myNonExistentFile.open(std::ios::out);
-    myNonExistentFile.close();
 }
 
 TEST_CASE("read a file", "[file]")
 {
     std::vector<String> result;
     File myFile("examples/lorem.txt");
-    myFile.open(std::ios::in);
     myFile.read(result);
-    myFile.close();
 
     std::vector<String> expectedResult {
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
@@ -169,9 +162,7 @@ TEST_CASE("write a file", "[file]")
         "Bonjour, le monde",
     };
     File myFile("examples/hello.txt");
-    myFile.open(std::ios::out);
     myFile.write(fileContent);
-    myFile.close();
 }
 
 TEST_CASE("write and read a file", "[file]")
@@ -183,13 +174,8 @@ TEST_CASE("write and read a file", "[file]")
     };
     std::vector<String> result;
     File myFile("examples/hello.txt");
-    myFile.open(std::ios::out);
     myFile.write(fileContent);
-    myFile.close();
-
-    myFile.open(std::ios::in);
     myFile.read(result);
-    myFile.close();
 
     unsigned int index = 0;
     for (auto line = result.begin(); line != result.end(); line++) {

@@ -32,22 +32,15 @@
 #include "String.hpp"
 #include <vector>
 
-#include <fstream>
-
 class File
 {
 public:
     File(const char *const name);
-    File(const File &other);
     virtual ~File();
-
-    void open(std::ios_base::openmode mode);
-    void close();
 
     void read(std::vector<String> &result);
     void write(std::vector<String> &input);
 
 private:
     const char *const mName;
-    std::fstream mStream;
 };
