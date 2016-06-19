@@ -129,6 +129,15 @@ TEST_CASE("String to int conversion", "[string]")
     REQUIRE_THROWS_AS(invalidNumber.toInteger(), std::invalid_argument);
 }
 
+TEST_CASE("String size function", "[string]")
+{
+    String hello("hello");
+    REQUIRE(hello.size() == 5);
+
+    String empty;
+    REQUIRE(empty.size() == 0);
+}
+
 TEST_CASE("Open/close files", "[file]")
 {
     File myFile("examples/lorem.txt");

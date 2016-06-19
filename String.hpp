@@ -50,6 +50,8 @@ public:
     const_iterator begin();
     const_iterator end();
 
+    size_t size() const;
+
     int toInteger() throw(std::invalid_argument);
     void clear();
 

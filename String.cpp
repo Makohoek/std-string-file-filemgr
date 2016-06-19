@@ -78,6 +78,11 @@ String::const_iterator String::end()
     return mChars.end();
 }
 
+size_t String::size() const
+{
+    return mChars.size();
+}
+
 int String::toInteger() throw(std::invalid_argument)
 {
     std::stringstream stream;
