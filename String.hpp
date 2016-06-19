@@ -37,7 +37,7 @@ public:
     String();
     String(const char *const chars);
     String(const String &other);
-    String(String&& other);
+    String(String &&other);
     virtual ~String();
 
     bool operator==(const String &other) const;
