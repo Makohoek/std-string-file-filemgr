@@ -31,6 +31,7 @@
 #include "external/Catch/include/catch.hpp"
 
 #include "String.hpp"
+#include "File.hpp"
 
 #include <stdexcept>
 
@@ -125,4 +126,23 @@ TEST_CASE("String to int conversion", "[string]")
 
     String invalidNumber("invalid");
     REQUIRE_THROWS_AS(invalidNumber.toInteger(), std::invalid_argument);
+}
+
+TEST_CASE("Open/close files", "[file]")
+{
+    File myFile("examples/lorem.txt");
+    myFile.open();
+    myFile.close();
+
+    File myNonExistentFile("examples/unknown.txt");
+    myFile.open();
+    myFile.close();
+}
+
+TEST_CASE("file existance", "[file]")
+{
+    File myFile("examples/lorem.txt");
+    REQUIRE(myFile.exists() == true);
+    File myNonExistentFile("examples/unknown.txt");
+    REQUIRE(myNonExistentFile.exists() == false);
 }
