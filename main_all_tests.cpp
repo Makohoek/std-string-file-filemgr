@@ -32,6 +32,7 @@
 
 #include "String.hpp"
 #include "File.hpp"
+#include "FileSystem.hpp"
 
 #include <stdexcept>
 
@@ -182,4 +183,27 @@ TEST_CASE("write and read a file", "[file]")
         REQUIRE(*line == fileContent[index]);
         index++;
     }
+}
+
+TEST_CASE("add element to FileSystem", "[filesystem]")
+{
+    FileSystem fileSystem;
+    File file("examples/hello.txt");
+
+    fileSystem.add(file);
+    File foundFile("temp");
+    fileSystem.findByName("examples/hello.txt", foundFile);
+    REQUIRE(foundFile == file);
+}
+
+TEST_CASE("find unknown element in FileSystem", "[filesystem]")
+{
+    FileSystem fileSystem;
+    File file("examples/hello.txt");
+
+    fileSystem.add(file);
+    File foundFile("temp");
+    REQUIRE_THROWS_AS(
+            fileSystem.findByName("examples/unexistent.txt", foundFile),
+            std::domain_error);
 }
