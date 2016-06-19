@@ -98,3 +98,15 @@ TEST_CASE("String move ctor", "[string]")
     REQUIRE(empty == helloCopy);
     REQUIRE(moveDestination == hello);
 }
+
+TEST_CASE("String iterator", "[string]")
+{
+    String helloWorld = "hello, world";
+    const char helloWorldArray[] = "hello, world";
+    unsigned int index = 0;
+
+    for (auto c = helloWorld.begin(); c != helloWorld.end(); c++) {
+        REQUIRE(*c == helloWorldArray[index]);
+        index++;
+    }
+}

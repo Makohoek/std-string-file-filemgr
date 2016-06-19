@@ -1,4 +1,4 @@
-* String implementation [6/8]
+* String implementation [7/8]
   - [X] create
   - [X] clear
   - [X] append
@@ -6,7 +6,7 @@
   - [X] compare
   - [X] copy
   - [X] move
-  - [ ] iterate over chars
+  - [X] iterate over chars
 * File reader writer [0/2]
   - [ ] Write String to file, asynchronously
   - [ ] Read file to String, asynchronously

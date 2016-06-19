@@ -33,6 +33,8 @@
 
 class String
 {
+typedef std::vector<char>::const_iterator const_iterator;
+
 public:
     String();
     String(const char *const chars);
@@ -43,6 +45,9 @@ public:
     bool operator==(const String &other) const;
     bool operator!=(const String &other) const;
     void operator+=(const String &other);
+
+    const_iterator begin();
+    const_iterator end();
 
     void clear();
 

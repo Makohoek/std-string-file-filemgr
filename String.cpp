@@ -65,6 +65,16 @@ void String::operator+=(const String &other)
     }
 }
 
+String::const_iterator String::begin()
+{
+    return mChars.begin();
+}
+
+String::const_iterator String::end()
+{
+    return mChars.end();
+}
+
 void String::clear()
 {
     mChars.clear();
