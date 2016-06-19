@@ -3,7 +3,7 @@ Build instructions
 
 After cloning the repo, you will need its dependencies (which are submodules)
 This can be done with:
-    git submodule --init --recursive
+    git submodule update --init --recursive
 
 After that, you can build with Make:
     make
