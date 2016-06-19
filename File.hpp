@@ -31,16 +31,17 @@
 
 #include "String.hpp"
 #include <vector>
+#include <string>
 
 class File
 {
 public:
-    File(const char *const name);
+    File(const std::string name);
     virtual ~File();
 
     void read(std::vector<String> &result);
     void write(std::vector<String> &input);
 
 private:
-    const char *const mName;
+    std::string mName;
 };

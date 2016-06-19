@@ -31,8 +31,9 @@
 
 #include <fstream>
 #include <string>
+#include <cstring>
 
-File::File(const char *const name) : mName(name)
+File::File(const std::string name) : mName(name)
 {}
 
 File::~File()
