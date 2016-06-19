@@ -29,6 +29,9 @@
  */
 #include "String.hpp"
 
+#include <stdexcept>
+#include <sstream>
+
 String::String() : mChars()
 {}
 
@@ -73,6 +76,23 @@ String::const_iterator String::begin()
 String::const_iterator String::end()
 {
     return mChars.end();
+}
+
+int String::toInteger() throw(std::invalid_argument)
+{
+    std::stringstream stream;
+    int result;
+
+    for (auto c = mChars.begin(); c != mChars.end(); c++) {
+        stream << *c;
+    }
+
+    stream >> result;
+    if (stream.fail() || stream.bad()) {
+        throw std::invalid_argument("This string is not an integer");
+    }
+
+    return result;
 }
 
 void String::clear()

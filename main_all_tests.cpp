@@ -32,6 +32,8 @@
 
 #include "String.hpp"
 
+#include <stdexcept>
+
 TEST_CASE("String comparison", "[string]")
 {
     String hello("hello, world");
@@ -109,4 +111,18 @@ TEST_CASE("String iterator", "[string]")
         REQUIRE(*c == helloWorldArray[index]);
         index++;
     }
+}
+
+TEST_CASE("String to int conversion", "[string]")
+{
+    String magicNumber("42");
+    int myMagicInteger = magicNumber.toInteger();
+    REQUIRE(myMagicInteger == 42);
+
+    String satanicNumber("-666");
+    int mySatanicInteger = satanicNumber.toInteger();
+    REQUIRE(mySatanicInteger == -666);
+
+    String invalidNumber("invalid");
+    REQUIRE_THROWS_AS(invalidNumber.toInteger(), std::invalid_argument);
 }
