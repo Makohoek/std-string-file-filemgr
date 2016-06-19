@@ -65,6 +65,17 @@ void File::write(std::vector<String> &input)
     myStream.close();
 }
 
+size_t File::size()
+{
+    size_t totalSize = 0;
+    std::vector<String> content;
+    read(content);
+    for (auto line = content.begin(); line != content.end(); line++) {
+        totalSize += line->size();
+    }
+    return totalSize;
+}
+
 bool File::operator<(const File &other) const
 {
     return strcmp(mName.c_str(), other.mName.c_str()) < 0;

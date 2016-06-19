@@ -194,6 +194,18 @@ TEST_CASE("write and read a file", "[file]")
     }
 }
 
+TEST_CASE("compute a file size", "[file]")
+{
+    std::vector<String> fileContent {
+        "Hello",
+        "Hallo",
+    };
+    File myFile("examples/hello_size.txt");
+    myFile.write(fileContent);
+
+    REQUIRE(myFile.size() == 10);
+}
+
 TEST_CASE("add element to FileSystem", "[filesystem]")
 {
     FileSystem fileSystem;

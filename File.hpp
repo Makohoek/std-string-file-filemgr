@@ -42,6 +42,8 @@ public:
     void read(std::vector<String> &result);
     void write(std::vector<String> &input);
 
+    size_t size();
+
     bool operator<(const File &other) const;
     bool operator==(const File &other) const;
 
