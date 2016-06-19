@@ -64,3 +64,13 @@ void File::write(std::vector<String> &input)
     }
     myStream.close();
 }
+
+bool File::operator<(const File &other) const
+{
+    return strcmp(mName.c_str(), other.mName.c_str()) < 0;
+}
+
+bool File::operator==(const File &other) const
+{
+    return mName == other.mName;
+}

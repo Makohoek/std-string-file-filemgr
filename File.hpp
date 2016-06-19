@@ -42,6 +42,9 @@ public:
     void read(std::vector<String> &result);
     void write(std::vector<String> &input);
 
+    bool operator<(const File &other) const;
+    bool operator==(const File &other) const;
+
 private:
     std::string mName;
 };
