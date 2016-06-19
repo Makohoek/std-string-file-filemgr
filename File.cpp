@@ -29,21 +29,43 @@
  */
 #include "File.hpp"
 
+#include <fstream>
+#include <string>
+
 File::File(const char *const name) : mName(name)
 {}
 
 File::~File()
-{}
-
-void File::open()
 {
+    close();
+}
+
+void File::open(std::ios_base::openmode mode)
+{
+    mStream.open(mName, mode);
 }
 
 void File::close()
 {
+    mStream.close();
 }
 
-bool File::exists()
+void File::read(std::vector<String> &result)
 {
-    return false;
+    std::string line;
+    while (mStream.good()) {
+        getline(mStream, line);
+        if (!line.empty())
+            result.push_back(String(line.c_str()));
+    }
+}
+
+void File::write(std::vector<String> &input)
+{
+    for (auto line = input.begin(); line != input.end(); line++) {
+        for (auto c = line->begin(); c != line->end(); c++) {
+            mStream << *c;
+        }
+        mStream << std::endl;
+    }
 }

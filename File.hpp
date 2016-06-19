@@ -30,6 +30,9 @@
 #pragma once
 
 #include "String.hpp"
+#include <vector>
+
+#include <fstream>
 
 class File
 {
@@ -37,10 +40,13 @@ public:
     File(const char *const name);
     virtual ~File();
 
-    void open();
+    void open(std::ios_base::openmode mode);
     void close();
-    bool exists();
+
+    void read(std::vector<String> &result);
+    void write(std::vector<String> &input);
 
 private:
     const char *const mName;
+    std::fstream mStream;
 };
