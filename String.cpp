@@ -39,6 +39,9 @@ String::String(const char *const chars) : mChars()
     }
 }
 
+String::String(const String &other) : mChars(other.mChars)
+{}
+
 String::~String()
 {}
 

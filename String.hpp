@@ -36,6 +36,7 @@ class String
 public:
     String();
     String(const char *const chars);
+    String(const String &other);
     virtual ~String();
 
     bool operator==(const String &other) const;

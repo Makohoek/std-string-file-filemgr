@@ -75,3 +75,13 @@ TEST_CASE("String append", "[string]")
     hello += world;
     REQUIRE(hello == helloWorld);
 }
+
+TEST_CASE("String copy ctor", "[string]")
+{
+    String hello("hello");
+    String helloCopy(hello);
+    REQUIRE(hello == helloCopy);
+
+    helloCopy.clear();
+    REQUIRE(hello != helloCopy);
+}

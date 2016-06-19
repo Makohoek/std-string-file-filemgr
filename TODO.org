@@ -1,10 +1,10 @@
-* String implementation [4/8]
+* String implementation [5/8]
   - [X] create
   - [X] clear
   - [X] append
   - [ ] convert to int
   - [X] compare
-  - [ ] copy
+  - [X] copy
   - [ ] move
   - [ ] iterate over chars
 * File reader writer [0/2]
