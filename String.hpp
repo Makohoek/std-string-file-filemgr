@@ -40,6 +40,7 @@ public:
 
     bool operator==(const String &other) const;
     bool operator!=(const String &other) const;
+    void operator+=(const String &other);
 
     void clear();
 

@@ -56,3 +56,22 @@ TEST_CASE("String emptyness", "[string]")
     hello.clear();
     REQUIRE(hello == empty);
 }
+
+TEST_CASE("String append", "[string]")
+{
+    String hello("hello");
+    String helloAppendEmpty("hello");
+    String world(", world");
+    String helloWorld("hello, world");
+    String emptyAppendHello;
+    String empty;
+
+    emptyAppendHello += hello;
+    REQUIRE(emptyAppendHello == hello);
+
+    helloAppendEmpty += empty;
+    REQUIRE(hello == helloAppendEmpty);
+
+    hello += world;
+    REQUIRE(hello == helloWorld);
+}

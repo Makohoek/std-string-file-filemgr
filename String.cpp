@@ -52,6 +52,13 @@ bool String::operator!=(const String &other) const
     return mChars != other.mChars;
 }
 
+void String::operator+=(const String &other)
+{
+    for (auto c = other.mChars.begin(); c != other.mChars.end(); c++) {
+        mChars.push_back(*c);
+    }
+}
+
 void String::clear()
 {
     mChars.clear();

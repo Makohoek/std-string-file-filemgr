@@ -1,7 +1,7 @@
-* String implementation [3/8]
+* String implementation [4/8]
   - [X] create
   - [X] clear
-  - [ ] append
+  - [X] append
   - [ ] convert to int
   - [X] compare
   - [ ] copy
