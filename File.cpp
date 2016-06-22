@@ -32,6 +32,8 @@
 #include <fstream>
 #include <string>
 #include <cstring>
+#include <future>
+#include <thread>
 
 File::File(const std::string name) : mName(name)
 {}
@@ -39,18 +41,24 @@ File::File(const std::string name) : mName(name)
 File::~File()
 {}
 
-void File::read(std::vector<String> &result) const
+std::future<std::vector<String> *> File::readAsync(std::vector<String> *result) const
+{
+    return std::async(std::launch::async, &File::internalRead, this, result);
+}
+
+std::vector<String> *File::internalRead(std::vector<String> *result) const
 {
     std::fstream myStream;
-    myStream.open(mName, std::ios::in);
     std::string line;
+    myStream.open(mName, std::ios::in);
     while (myStream.good()) {
         getline(myStream, line);
         if (!line.empty()) {
-            result.push_back(String(line.c_str()));
+            result->push_back(String(line.c_str()));
         }
     }
     myStream.close();
+    return result;
 }
 
 void File::write(std::vector<String> &input)
@@ -75,7 +83,7 @@ size_t File::size() const
 {
     size_t totalSize = 0;
     std::vector<String> content;
-    read(content);
+    internalRead(&content);
     for (auto line = content.begin(); line != content.end(); line++) {
         totalSize += line->size();
     }

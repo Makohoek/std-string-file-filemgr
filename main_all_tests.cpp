@@ -35,6 +35,7 @@
 #include "FileSystem.hpp"
 
 #include <stdexcept>
+#include <future>
 
 TEST_CASE("String comparison", "[string]")
 {
@@ -144,11 +145,16 @@ TEST_CASE("Open/close files", "[file]")
     File myNonExistentFile("examples/unknown.txt");
 }
 
-TEST_CASE("read a file", "[file]")
+TEST_CASE("read a file asynchronously", "[file]")
 {
-    std::vector<String> result;
     File myFile("examples/lorem.txt");
-    myFile.read(result);
+    std::cout << "before start read..." << std::endl;
+
+    std::vector<String> result;
+    auto f = myFile.readAsync(&result);
+
+    std::cout << "Waiting read result..." << std::endl;
+    f.wait();
 
     std::vector<String> expectedResult {
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
@@ -156,6 +162,8 @@ TEST_CASE("read a file", "[file]")
         "vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,",
         "no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     };
+
+    std::cout << "result ready" << std::endl;
 
     unsigned int index = 0;
     for (auto line = result.begin(); line != result.end(); line++) {
@@ -185,7 +193,8 @@ TEST_CASE("write and read a file", "[file]")
     std::vector<String> result;
     File myFile("examples/hello.txt");
     myFile.write(fileContent);
-    myFile.read(result);
+    auto f = myFile.readAsync(&result);
+    f.wait();
 
     unsigned int index = 0;
     for (auto line = result.begin(); line != result.end(); line++) {

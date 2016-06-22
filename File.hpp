@@ -32,6 +32,7 @@
 #include "String.hpp"
 #include <vector>
 #include <string>
+#include <future>
 
 class File
 {
@@ -39,8 +40,9 @@ public:
     File(const std::string name);
     virtual ~File();
 
-    void read(std::vector<String> &result) const;
     void write(std::vector<String> &input);
+
+    std::future<std::vector<String> *> readAsync(std::vector<String> *result) const;
 
     size_t size() const;
     std::string getName() const;
@@ -50,4 +52,5 @@ public:
 
 private:
     std::string mName;
+    std::vector<String> *internalRead(std::vector<String> *result) const;
 };
