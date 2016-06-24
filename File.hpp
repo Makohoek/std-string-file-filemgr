@@ -40,9 +40,8 @@ public:
     File(const std::string name);
     virtual ~File();
 
-    void write(std::vector<String> &input);
-
     std::future<std::vector<String> *> readAsync(std::vector<String> *result) const;
+    std::future<void> writeAsync(const std::vector<String> &input) const;
 
     size_t size() const;
     std::string getName() const;
@@ -53,4 +52,5 @@ public:
 private:
     std::string mName;
     std::vector<String> *internalRead(std::vector<String> *result) const;
+    void internalWrite(const std::vector<String> &input) const;
 };

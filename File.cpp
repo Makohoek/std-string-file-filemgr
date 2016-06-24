@@ -46,6 +46,11 @@ std::future<std::vector<String> *> File::readAsync(std::vector<String> *result) 
     return std::async(std::launch::async, &File::internalRead, this, result);
 }
 
+std::future<void> File::writeAsync(const std::vector<String> &input) const
+{
+    return std::async(std::launch::async, &File::internalWrite, this, input);
+}
+
 std::vector<String> *File::internalRead(std::vector<String> *result) const
 {
     std::fstream myStream;
@@ -61,7 +66,7 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
     return result;
 }
 
-void File::write(std::vector<String> &input)
+void File::internalWrite(const std::vector<String> &input) const
 {
     std::fstream myStream;
     myStream.open(mName, std::ios::out);

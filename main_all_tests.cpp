@@ -172,7 +172,7 @@ TEST_CASE("read a file asynchronously", "[file]")
     }
 }
 
-TEST_CASE("write a file", "[file]")
+TEST_CASE("write a file asynchronously", "[file]")
 {
     std::vector<String> fileContent {
         "Hello, world",
@@ -180,10 +180,14 @@ TEST_CASE("write a file", "[file]")
         "Bonjour, le monde",
     };
     File myFile("examples/hello.txt");
-    myFile.write(fileContent);
+    std::cout << "before start read..." << std::endl;
+    auto writeDone = myFile.writeAsync(fileContent);
+    std::cout << "waiting write to finish ..." << std::endl;
+    writeDone.wait();
+    std::cout << "write done" << std::endl;
 }
 
-TEST_CASE("write and read a file", "[file]")
+TEST_CASE("write and read a file asynchronously", "[file]")
 {
     std::vector<String> fileContent {
         "Hello, world",
@@ -192,9 +196,11 @@ TEST_CASE("write and read a file", "[file]")
     };
     std::vector<String> result;
     File myFile("examples/hello.txt");
-    myFile.write(fileContent);
-    auto f = myFile.readAsync(&result);
-    f.wait();
+    auto writeDone = myFile.writeAsync(fileContent);
+    /* Client *MUST* handle the synchronization between read/write */
+    writeDone.wait();
+    auto readDone = myFile.readAsync(&result);
+    readDone.wait();
 
     unsigned int index = 0;
     for (auto line = result.begin(); line != result.end(); line++) {
@@ -210,7 +216,8 @@ TEST_CASE("compute a file size", "[file]")
         "Hallo",
     };
     File myFile("examples/hello_size.txt");
-    myFile.write(fileContent);
+    auto writeDone = myFile.writeAsync(fileContent);
+    writeDone.wait();
 
     REQUIRE(myFile.size() == 10);
 }
@@ -245,7 +252,7 @@ TEST_CASE("printing the size for each file", "[filesystem]")
         "Hallo",
     };
     File helloFile("examples/hello.txt");
-    helloFile.write(helloText);
+    auto helloWriteDone = helloFile.writeAsync(helloText);
 
     std::vector<String> loremText {
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
@@ -254,9 +261,12 @@ TEST_CASE("printing the size for each file", "[filesystem]")
         "no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     };
     File loremFile("examples/lorem_two.txt");
-    loremFile.write(loremText);
+    auto loremWriteDone = loremFile.writeAsync(loremText);
 
     FileSystem fileSystem;
+    helloWriteDone.wait();
+    loremWriteDone.wait();
+
     fileSystem.add(helloFile);
     fileSystem.add(loremFile);
 
