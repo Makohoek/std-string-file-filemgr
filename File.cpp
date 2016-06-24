@@ -92,12 +92,12 @@ size_t File::size() const
     return totalSize;
 }
 
-bool File::operator<(const File &other) const
+bool operator<(const File &left, const File &right)
 {
-    return strcmp(mName.c_str(), other.mName.c_str()) < 0;
+    return strcmp(left.mName.c_str(), right.mName.c_str()) < 0;
 }
 
-bool File::operator==(const File &other) const
+bool operator==(const File &left, const File &right)
 {
-    return mName == other.mName;
+    return left.mName == right.mName;
 }

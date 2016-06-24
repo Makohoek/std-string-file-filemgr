@@ -42,8 +42,8 @@ public:
     String(const String &other);
     String(String &&other);
 
-    bool operator==(const String &other) const;
-    bool operator!=(const String &other) const;
+    friend bool operator==(const String& left, const String &right);
+    friend bool operator!=(const String& left, const String &right);
     void operator+=(const String &other);
 
     const_iterator begin() const;

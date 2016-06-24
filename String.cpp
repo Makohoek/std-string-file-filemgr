@@ -45,14 +45,14 @@ String::String(const String &other) : mChars(other.mChars)
 String::String(String &&other) : mChars(std::move(other.mChars))
 {}
 
-bool String::operator==(const String &other) const
+bool operator==(const String& left, const String &right)
 {
-    return mChars == other.mChars;
+    return left.mChars == right.mChars;
 }
 
-bool String::operator!=(const String &other) const
+bool operator!=(const String& left, const String &right)
 {
-    return mChars != other.mChars;
+    return left.mChars != right.mChars;
 }
 
 void String::operator+=(const String &other)

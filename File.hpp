@@ -45,8 +45,8 @@ public:
     size_t size() const;
     const std::string& getName() const;
 
-    bool operator<(const File &other) const;
-    bool operator==(const File &other) const;
+    friend bool operator<(const File &left, const File &right);
+    friend bool operator==(const File &left, const File &right);
 
 private:
     std::string mName;
