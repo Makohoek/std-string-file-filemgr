@@ -172,6 +172,28 @@ TEST_CASE("read a file asynchronously", "[file]")
     }
 }
 
+TEST_CASE("read an invalid file", "[file]")
+{
+    File myFile("examples/inaccessible");
+    std::vector<String> result;
+
+    auto f = myFile.readAsync(&result);
+    f.wait();
+
+    REQUIRE_THROWS_AS(f.get(), std::ifstream::failure);
+}
+
+TEST_CASE("write an invalid file", "[file]")
+{
+    File myFile("examples/inaccessible");
+    std::vector<String> input;
+
+    auto f = myFile.writeAsync(input);
+    f.wait();
+
+    REQUIRE_THROWS_AS(f.get(), std::ofstream::failure);
+}
+
 TEST_CASE("write a file asynchronously", "[file]")
 {
     std::vector<String> fileContent {

@@ -54,6 +54,11 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
 {
     std::string line;
     std::ifstream myStream(mName);
+
+    if (!myStream.good()) {
+        throw std::ifstream::failure("impossible to open file");
+    }
+
     while (myStream.good()) {
         getline(myStream, line);
         if (!myStream.eof()) { // don't push empty string in the result
@@ -67,6 +72,10 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
 void File::internalWrite(const std::vector<String> &input) const
 {
     std::ofstream myStream(mName);
+
+    if (!myStream.good()) {
+        throw std::ofstream::failure("impossible to open file");
+    }
     for (auto line : input) {
         for (auto c : line) {
             myStream << c;
