@@ -77,7 +77,7 @@ size_t String::size() const
     return mChars.size();
 }
 
-int String::toInteger() noexcept(false)
+int String::toInteger() const noexcept(false)
 {
     std::stringstream stream;
     int result;

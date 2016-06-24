@@ -51,7 +51,7 @@ public:
 
     size_t size() const;
 
-    int toInteger() noexcept(false);
+    int toInteger() const noexcept(false);
     void clear();
 
 private:
