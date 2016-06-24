@@ -110,8 +110,8 @@ TEST_CASE("String iterator", "[string]")
     const char helloWorldArray[] = "hello, world";
     unsigned int index = 0;
 
-    for (auto c = helloWorld.begin(); c != helloWorld.end(); c++) {
-        REQUIRE(*c == helloWorldArray[index]);
+    for (auto c : helloWorld) {
+        REQUIRE(c == helloWorldArray[index]);
         index++;
     }
 }
@@ -163,13 +163,35 @@ TEST_CASE("read a file asynchronously", "[file]")
         "no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     };
 
-    std::cout << "result ready" << std::endl;
+    std::cout << "read result ready" << std::endl;
 
     unsigned int index = 0;
-    for (auto line = result.begin(); line != result.end(); line++) {
-        REQUIRE(*line == expectedResult[index]);
+    for (auto line : result) {
+        REQUIRE(line == expectedResult[index]);
         index++;
     }
+}
+
+TEST_CASE("read an invalid file", "[file]")
+{
+    File myFile("examples/inaccessible");
+    std::vector<String> result;
+
+    auto f = myFile.readAsync(&result);
+    f.wait();
+
+    REQUIRE_THROWS_AS(f.get(), std::ifstream::failure);
+}
+
+TEST_CASE("write an invalid file", "[file]")
+{
+    File myFile("examples/inaccessible");
+    std::vector<String> input;
+
+    auto f = myFile.writeAsync(input);
+    f.wait();
+
+    REQUIRE_THROWS_AS(f.get(), std::ofstream::failure);
 }
 
 TEST_CASE("write a file asynchronously", "[file]")
@@ -180,9 +202,9 @@ TEST_CASE("write a file asynchronously", "[file]")
         "Bonjour, le monde",
     };
     File myFile("examples/hello.txt");
-    std::cout << "before start read..." << std::endl;
+    std::cout << "before start write..." << std::endl;
     auto writeDone = myFile.writeAsync(fileContent);
-    std::cout << "waiting write to finish ..." << std::endl;
+    std::cout << "waiting write to finish..." << std::endl;
     writeDone.wait();
     std::cout << "write done" << std::endl;
 }
@@ -203,8 +225,8 @@ TEST_CASE("write and read a file asynchronously", "[file]")
     readDone.wait();
 
     unsigned int index = 0;
-    for (auto line = result.begin(); line != result.end(); line++) {
-        REQUIRE(*line == fileContent[index]);
+    for (auto line : result) {
+        REQUIRE(line == fileContent[index]);
         index++;
     }
 }
@@ -226,11 +248,11 @@ TEST_CASE("add element to FileSystem", "[filesystem]")
 {
     FileSystem fileSystem;
     File file("examples/hello.txt");
+    File fileHello("examples/hello.txt");
 
-    fileSystem.add(file);
-    File foundFile("temp");
-    fileSystem.findByName("examples/hello.txt", foundFile);
-    REQUIRE(foundFile == file);
+    fileSystem.add(std::move(file));
+    auto & foundFile = fileSystem.findByName("examples/hello.txt");
+    REQUIRE(foundFile == fileHello);
 }
 
 TEST_CASE("find unknown element in FileSystem", "[filesystem]")
@@ -238,10 +260,9 @@ TEST_CASE("find unknown element in FileSystem", "[filesystem]")
     FileSystem fileSystem;
     File file("examples/hello.txt");
 
-    fileSystem.add(file);
-    File foundFile("temp");
+    fileSystem.add(std::move(file));
     REQUIRE_THROWS_AS(
-        fileSystem.findByName("examples/unexistent.txt", foundFile),
+        fileSystem.findByName("examples/unexistent.txt"),
         std::domain_error);
 }
 
@@ -267,8 +288,8 @@ TEST_CASE("printing the size for each file", "[filesystem]")
     helloWriteDone.wait();
     loremWriteDone.wait();
 
-    fileSystem.add(helloFile);
-    fileSystem.add(loremFile);
+    fileSystem.add(std::move(helloFile));
+    fileSystem.add(std::move(loremFile));
 
     fileSystem.printEachFileSize();
 }

@@ -32,19 +32,18 @@
 #include <Vector>
 #include <stdexcept>
 
-class String
+class String final
 {
 typedef std::vector<char>::const_iterator const_iterator;
 
 public:
-    String();
+    String() = default;
     String(const char *const chars);
     String(const String &other);
     String(String &&other);
-    virtual ~String();
 
-    bool operator==(const String &other) const;
-    bool operator!=(const String &other) const;
+    friend bool operator==(const String& left, const String &right);
+    friend bool operator!=(const String& left, const String &right);
     void operator+=(const String &other);
 
     const_iterator begin() const;
@@ -52,7 +51,7 @@ public:
 
     size_t size() const;
 
-    int toInteger() throw(std::invalid_argument);
+    int toInteger() const noexcept(false);
     void clear();
 
 private:

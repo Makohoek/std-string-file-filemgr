@@ -34,20 +34,22 @@
 #include <string>
 #include <future>
 
-class File
+class File final
 {
 public:
     File(const std::string name);
-    virtual ~File();
+    File(File &&other);
+    File(const File& other) = delete;
+    File operator=(const File& other) = delete;
 
     std::future<std::vector<String> *> readAsync(std::vector<String> *result) const;
     std::future<void> writeAsync(const std::vector<String> &input) const;
 
     size_t size() const;
-    std::string getName() const;
+    const std::string& getName() const;
 
-    bool operator<(const File &other) const;
-    bool operator==(const File &other) const;
+    friend bool operator<(const File &left, const File &right);
+    friend bool operator==(const File &left, const File &right);
 
 private:
     std::string mName;

@@ -31,14 +31,13 @@
 
 #include <fstream>
 #include <string>
-#include <cstring>
 #include <future>
 #include <thread>
 
 File::File(const std::string name) : mName(name)
 {}
 
-File::~File()
+File::File(File &&other): mName(std::move(other.mName))
 {}
 
 std::future<std::vector<String> *> File::readAsync(std::vector<String> *result) const
@@ -53,12 +52,16 @@ std::future<void> File::writeAsync(const std::vector<String> &input) const
 
 std::vector<String> *File::internalRead(std::vector<String> *result) const
 {
-    std::fstream myStream;
     std::string line;
-    myStream.open(mName, std::ios::in);
+    std::ifstream myStream(mName);
+
+    if (!myStream.good()) {
+        throw std::ifstream::failure("impossible to open file");
+    }
+
     while (myStream.good()) {
         getline(myStream, line);
-        if (!line.empty()) {
+        if (!myStream.eof()) { // don't push empty string in the result
             result->push_back(String(line.c_str()));
         }
     }
@@ -68,18 +71,21 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
 
 void File::internalWrite(const std::vector<String> &input) const
 {
-    std::fstream myStream;
-    myStream.open(mName, std::ios::out);
-    for (auto line = input.begin(); line != input.end(); line++) {
-        for (auto c = line->begin(); c != line->end(); c++) {
-            myStream << *c;
+    std::ofstream myStream(mName);
+
+    if (!myStream.good()) {
+        throw std::ofstream::failure("impossible to open file");
+    }
+    for (auto line : input) {
+        for (auto c : line) {
+            myStream << c;
         }
         myStream << std::endl;
     }
     myStream.close();
 }
 
-std::string File::getName() const
+const std::string& File::getName() const
 {
     return mName;
 }
@@ -89,18 +95,18 @@ size_t File::size() const
     size_t totalSize = 0;
     std::vector<String> content;
     internalRead(&content);
-    for (auto line = content.begin(); line != content.end(); line++) {
-        totalSize += line->size();
+    for (auto line : content) {
+        totalSize += line.size();
     }
     return totalSize;
 }
 
-bool File::operator<(const File &other) const
+bool operator<(const File &left, const File &right)
 {
-    return strcmp(mName.c_str(), other.mName.c_str()) < 0;
+    return left.mName.compare(right.mName);
 }
 
-bool File::operator==(const File &other) const
+bool operator==(const File &left, const File &right)
 {
-    return mName == other.mName;
+    return left.mName == right.mName;
 }

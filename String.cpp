@@ -32,9 +32,6 @@
 #include <stdexcept>
 #include <sstream>
 
-String::String() : mChars()
-{}
-
 String::String(const char *const chars) : mChars()
 {
     for (const char *c = chars; c != NULL && *c != '\0'; c++) {
@@ -48,24 +45,19 @@ String::String(const String &other) : mChars(other.mChars)
 String::String(String &&other) : mChars(std::move(other.mChars))
 {}
 
-String::~String()
-{}
-
-bool String::operator==(const String &other) const
+bool operator==(const String& left, const String &right)
 {
-    return mChars == other.mChars;
+    return left.mChars == right.mChars;
 }
 
-bool String::operator!=(const String &other) const
+bool operator!=(const String& left, const String &right)
 {
-    return mChars != other.mChars;
+    return left.mChars != right.mChars;
 }
 
 void String::operator+=(const String &other)
 {
-    for (auto c = other.mChars.begin(); c != other.mChars.end(); c++) {
-        mChars.push_back(*c);
-    }
+    mChars.insert(std::end(mChars), std::begin(other), std::end(other));
 }
 
 String::const_iterator String::begin() const
@@ -83,15 +75,12 @@ size_t String::size() const
     return mChars.size();
 }
 
-int String::toInteger() throw(std::invalid_argument)
+int String::toInteger() const noexcept(false)
 {
     std::stringstream stream;
     int result;
 
-    for (auto c = mChars.begin(); c != mChars.end(); c++) {
-        stream << *c;
-    }
-
+    stream.write(mChars.data(), size());
     stream >> result;
     if (stream.fail() || stream.bad()) {
         throw std::invalid_argument("This string is not an integer");

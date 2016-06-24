@@ -33,30 +33,23 @@
 #include <set>
 #include <iostream>
 
-FileSystem::FileSystem()
-{}
-
-FileSystem::~FileSystem()
-{}
-
-void FileSystem::add(File &f)
+void FileSystem::add(File &&f)
 {
-    mFiles.insert(f);
+    mFiles.insert(std::move(f));
 }
 
-void FileSystem::findByName(const std::string name, File &result) throw(std::domain_error)
+const File& FileSystem::findByName(const std::string &name) noexcept(false)
 {
     auto it = mFiles.find(name);
     if (it == mFiles.end()) {
         throw std::domain_error("File does not exist in filesystem");
     }
-
-    result = *it;
+    return *it;
 }
 
 void FileSystem::printEachFileSize()
 {
-    for (auto file = mFiles.begin(); file != mFiles.end(); file++) {
-        std::cout << file->getName() << ":" << file->size() << " chars" << std::endl;
+    for (auto & file : mFiles) {
+        std::cout << file.getName() << ":" << file.size() << " chars" << std::endl;
     }
 }
