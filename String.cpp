@@ -80,7 +80,7 @@ size_t String::size() const
     return mChars.size();
 }
 
-int String::toInteger() throw(std::invalid_argument)
+int String::toInteger() noexcept(false)
 {
     std::stringstream stream;
     int result;

@@ -38,7 +38,7 @@ void FileSystem::add(File &f)
     mFiles.insert(f);
 }
 
-void FileSystem::findByName(const std::string name, File &result) throw(std::domain_error)
+void FileSystem::findByName(const std::string name, File &result) noexcept(false)
 {
     auto it = mFiles.find(name);
     if (it == mFiles.end()) {

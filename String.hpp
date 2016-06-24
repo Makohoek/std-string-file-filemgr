@@ -51,7 +51,7 @@ public:
 
     size_t size() const;
 
-    int toInteger() throw(std::invalid_argument);
+    int toInteger() noexcept(false);
     void clear();
 
 private:
