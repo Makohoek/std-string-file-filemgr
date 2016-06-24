@@ -57,9 +57,7 @@ bool operator!=(const String& left, const String &right)
 
 void String::operator+=(const String &other)
 {
-    for (auto c : other.mChars) {
-        mChars.push_back(c);
-    }
+    mChars.insert(std::end(mChars), std::begin(other), std::end(other));
 }
 
 String::const_iterator String::begin() const
