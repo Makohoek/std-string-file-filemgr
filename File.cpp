@@ -53,9 +53,8 @@ std::future<void> File::writeAsync(const std::vector<String> &input) const
 
 std::vector<String> *File::internalRead(std::vector<String> *result) const
 {
-    std::fstream myStream;
     std::string line;
-    myStream.open(mName, std::ios::in);
+    std::ifstream myStream(mName);
     while (myStream.good()) {
         getline(myStream, line);
         if (!line.empty()) {
@@ -68,8 +67,7 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
 
 void File::internalWrite(const std::vector<String> &input) const
 {
-    std::fstream myStream;
-    myStream.open(mName, std::ios::out);
+    std::ofstream myStream(mName);
     for (auto line : input) {
         for (auto c : line) {
             myStream << c;
