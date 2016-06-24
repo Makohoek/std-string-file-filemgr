@@ -32,9 +32,6 @@
 #include <stdexcept>
 #include <sstream>
 
-String::String() : mChars()
-{}
-
 String::String(const char *const chars) : mChars()
 {
     for (const char *c = chars; c != NULL && *c != '\0'; c++) {

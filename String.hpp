@@ -37,7 +37,7 @@ class String final
 typedef std::vector<char>::const_iterator const_iterator;
 
 public:
-    String();
+    String() = default;
     String(const char *const chars);
     String(const String &other);
     String(String &&other);
