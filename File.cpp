@@ -76,7 +76,7 @@ void File::internalWrite(const std::vector<String> &input) const
     myStream.close();
 }
 
-std::string File::getName() const
+const std::string& File::getName() const
 {
     return mName;
 }

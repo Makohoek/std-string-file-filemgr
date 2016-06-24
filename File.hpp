@@ -43,7 +43,7 @@ public:
     std::future<void> writeAsync(const std::vector<String> &input) const;
 
     size_t size() const;
-    std::string getName() const;
+    const std::string& getName() const;
 
     bool operator<(const File &other) const;
     bool operator==(const File &other) const;
