@@ -163,7 +163,7 @@ TEST_CASE("read a file asynchronously", "[file]")
         "no sea takimata sanctus est Lorem ipsum dolor sit amet.",
     };
 
-    std::cout << "result ready" << std::endl;
+    std::cout << "read result ready" << std::endl;
 
     unsigned int index = 0;
     for (auto line = result.begin(); line != result.end(); line++) {
@@ -180,9 +180,9 @@ TEST_CASE("write a file asynchronously", "[file]")
         "Bonjour, le monde",
     };
     File myFile("examples/hello.txt");
-    std::cout << "before start read..." << std::endl;
+    std::cout << "before start write..." << std::endl;
     auto writeDone = myFile.writeAsync(fileContent);
-    std::cout << "waiting write to finish ..." << std::endl;
+    std::cout << "waiting write to finish..." << std::endl;
     writeDone.wait();
     std::cout << "write done" << std::endl;
 }
