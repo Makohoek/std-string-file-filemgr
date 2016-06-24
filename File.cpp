@@ -57,7 +57,7 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
     std::ifstream myStream(mName);
     while (myStream.good()) {
         getline(myStream, line);
-        if (!line.empty()) {
+        if (!myStream.eof()) { // don't push empty string in the result
             result->push_back(String(line.c_str()));
         }
     }
