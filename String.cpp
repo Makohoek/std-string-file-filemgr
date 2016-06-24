@@ -80,10 +80,7 @@ int String::toInteger() const noexcept(false)
     std::stringstream stream;
     int result;
 
-    for (auto c : mChars) {
-        stream << c;
-    }
-
+    stream.write(mChars.data(), size());
     stream >> result;
     if (stream.fail() || stream.bad()) {
         throw std::invalid_argument("This string is not an integer");
