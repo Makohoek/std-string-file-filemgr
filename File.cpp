@@ -31,7 +31,6 @@
 
 #include <fstream>
 #include <string>
-#include <cstring>
 #include <future>
 #include <thread>
 
@@ -95,7 +94,7 @@ size_t File::size() const
 
 bool operator<(const File &left, const File &right)
 {
-    return strcmp(left.mName.c_str(), right.mName.c_str()) < 0;
+    return left.mName.compare(right.mName);
 }
 
 bool operator==(const File &left, const File &right)
