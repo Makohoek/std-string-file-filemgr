@@ -34,11 +34,10 @@
 #include <set>
 #include <stdexcept>
 
-class FileSystem
+class FileSystem final
 {
 public:
     FileSystem();
-    virtual ~FileSystem();
 
     void add(File &f);
     void findByName(const std::string name, File &result) throw(std::domain_error);

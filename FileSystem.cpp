@@ -36,9 +36,6 @@
 FileSystem::FileSystem()
 {}
 
-FileSystem::~FileSystem()
-{}
-
 void FileSystem::add(File &f)
 {
     mFiles.insert(f);

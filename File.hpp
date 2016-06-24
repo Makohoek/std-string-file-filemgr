@@ -34,11 +34,10 @@
 #include <string>
 #include <future>
 
-class File
+class File final
 {
 public:
     File(const std::string name);
-    virtual ~File();
 
     std::future<std::vector<String> *> readAsync(std::vector<String> *result) const;
     std::future<void> writeAsync(const std::vector<String> &input) const;

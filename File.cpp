@@ -38,9 +38,6 @@
 File::File(const std::string name) : mName(name)
 {}
 
-File::~File()
-{}
-
 std::future<std::vector<String> *> File::readAsync(std::vector<String> *result) const
 {
     return std::async(std::launch::async, &File::internalRead, this, result);

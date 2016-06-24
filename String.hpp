@@ -32,7 +32,7 @@
 #include <Vector>
 #include <stdexcept>
 
-class String
+class String final
 {
 typedef std::vector<char>::const_iterator const_iterator;
 
@@ -41,7 +41,6 @@ public:
     String(const char *const chars);
     String(const String &other);
     String(String &&other);
-    virtual ~String();
 
     bool operator==(const String &other) const;
     bool operator!=(const String &other) const;
