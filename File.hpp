@@ -38,6 +38,9 @@ class File final
 {
 public:
     File(const std::string name);
+    File(File &&other);
+    File(const File& other) = delete;
+    File operator=(const File& other) = delete;
 
     std::future<std::vector<String> *> readAsync(std::vector<String> *result) const;
     std::future<void> writeAsync(const std::vector<String> &input) const;

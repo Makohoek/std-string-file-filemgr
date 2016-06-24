@@ -37,8 +37,8 @@
 class FileSystem final
 {
 public:
-    void add(File &f);
-    void findByName(const std::string name, File &result) noexcept(false);
+    void add(File &&f);
+    const File& findByName(const std::string& name) noexcept(false);
     void printEachFileSize();
 
 private:

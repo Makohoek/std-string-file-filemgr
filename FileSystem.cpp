@@ -33,24 +33,23 @@
 #include <set>
 #include <iostream>
 
-void FileSystem::add(File &f)
+void FileSystem::add(File &&f)
 {
-    mFiles.insert(f);
+    mFiles.insert(std::move(f));
 }
 
-void FileSystem::findByName(const std::string name, File &result) noexcept(false)
+const File& FileSystem::findByName(const std::string &name) noexcept(false)
 {
     auto it = mFiles.find(name);
     if (it == mFiles.end()) {
         throw std::domain_error("File does not exist in filesystem");
     }
-
-    result = *it;
+    return *it;
 }
 
 void FileSystem::printEachFileSize()
 {
-    for (auto file : mFiles) {
+    for (auto & file : mFiles) {
         std::cout << file.getName() << ":" << file.size() << " chars" << std::endl;
     }
 }

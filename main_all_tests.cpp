@@ -226,11 +226,11 @@ TEST_CASE("add element to FileSystem", "[filesystem]")
 {
     FileSystem fileSystem;
     File file("examples/hello.txt");
+    File fileHello("examples/hello.txt");
 
-    fileSystem.add(file);
-    File foundFile("temp");
-    fileSystem.findByName("examples/hello.txt", foundFile);
-    REQUIRE(foundFile == file);
+    fileSystem.add(std::move(file));
+    auto & foundFile = fileSystem.findByName("examples/hello.txt");
+    REQUIRE(foundFile == fileHello);
 }
 
 TEST_CASE("find unknown element in FileSystem", "[filesystem]")
@@ -238,10 +238,9 @@ TEST_CASE("find unknown element in FileSystem", "[filesystem]")
     FileSystem fileSystem;
     File file("examples/hello.txt");
 
-    fileSystem.add(file);
-    File foundFile("temp");
+    fileSystem.add(std::move(file));
     REQUIRE_THROWS_AS(
-        fileSystem.findByName("examples/unexistent.txt", foundFile),
+        fileSystem.findByName("examples/unexistent.txt"),
         std::domain_error);
 }
 
@@ -267,8 +266,8 @@ TEST_CASE("printing the size for each file", "[filesystem]")
     helloWriteDone.wait();
     loremWriteDone.wait();
 
-    fileSystem.add(helloFile);
-    fileSystem.add(loremFile);
+    fileSystem.add(std::move(helloFile));
+    fileSystem.add(std::move(loremFile));
 
     fileSystem.printEachFileSize();
 }
