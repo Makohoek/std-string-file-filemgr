@@ -33,9 +33,6 @@
 #include <set>
 #include <iostream>
 
-FileSystem::FileSystem()
-{}
-
 void FileSystem::add(File &f)
 {
     mFiles.insert(f);
