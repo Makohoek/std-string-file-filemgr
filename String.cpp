@@ -60,8 +60,8 @@ bool String::operator!=(const String &other) const
 
 void String::operator+=(const String &other)
 {
-    for (auto c = other.mChars.begin(); c != other.mChars.end(); c++) {
-        mChars.push_back(*c);
+    for (auto c : other.mChars) {
+        mChars.push_back(c);
     }
 }
 
@@ -85,8 +85,8 @@ int String::toInteger() throw(std::invalid_argument)
     std::stringstream stream;
     int result;
 
-    for (auto c = mChars.begin(); c != mChars.end(); c++) {
-        stream << *c;
+    for (auto c : mChars) {
+        stream << c;
     }
 
     stream >> result;

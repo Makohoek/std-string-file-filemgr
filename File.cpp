@@ -67,9 +67,9 @@ void File::internalWrite(const std::vector<String> &input) const
 {
     std::fstream myStream;
     myStream.open(mName, std::ios::out);
-    for (auto line = input.begin(); line != input.end(); line++) {
-        for (auto c = line->begin(); c != line->end(); c++) {
-            myStream << *c;
+    for (auto line : input) {
+        for (auto c : line) {
+            myStream << c;
         }
         myStream << std::endl;
     }
@@ -86,8 +86,8 @@ size_t File::size() const
     size_t totalSize = 0;
     std::vector<String> content;
     internalRead(&content);
-    for (auto line = content.begin(); line != content.end(); line++) {
-        totalSize += line->size();
+    for (auto line : content) {
+        totalSize += line.size();
     }
     return totalSize;
 }

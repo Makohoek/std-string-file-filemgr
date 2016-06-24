@@ -50,7 +50,7 @@ void FileSystem::findByName(const std::string name, File &result) throw(std::dom
 
 void FileSystem::printEachFileSize()
 {
-    for (auto file = mFiles.begin(); file != mFiles.end(); file++) {
-        std::cout << file->getName() << ":" << file->size() << " chars" << std::endl;
+    for (auto file : mFiles) {
+        std::cout << file.getName() << ":" << file.size() << " chars" << std::endl;
     }
 }

@@ -110,8 +110,8 @@ TEST_CASE("String iterator", "[string]")
     const char helloWorldArray[] = "hello, world";
     unsigned int index = 0;
 
-    for (auto c = helloWorld.begin(); c != helloWorld.end(); c++) {
-        REQUIRE(*c == helloWorldArray[index]);
+    for (auto c : helloWorld) {
+        REQUIRE(c == helloWorldArray[index]);
         index++;
     }
 }
@@ -166,8 +166,8 @@ TEST_CASE("read a file asynchronously", "[file]")
     std::cout << "read result ready" << std::endl;
 
     unsigned int index = 0;
-    for (auto line = result.begin(); line != result.end(); line++) {
-        REQUIRE(*line == expectedResult[index]);
+    for (auto line : result) {
+        REQUIRE(line == expectedResult[index]);
         index++;
     }
 }
@@ -203,8 +203,8 @@ TEST_CASE("write and read a file asynchronously", "[file]")
     readDone.wait();
 
     unsigned int index = 0;
-    for (auto line = result.begin(); line != result.end(); line++) {
-        REQUIRE(*line == fileContent[index]);
+    for (auto line : result) {
+        REQUIRE(line == fileContent[index]);
         index++;
     }
 }
