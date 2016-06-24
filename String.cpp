@@ -68,12 +68,12 @@ void String::operator+=(const String &other)
     }
 }
 
-String::const_iterator String::begin()
+String::const_iterator String::begin() const
 {
     return mChars.begin();
 }
 
-String::const_iterator String::end()
+String::const_iterator String::end() const
 {
     return mChars.end();
 }

@@ -47,8 +47,8 @@ public:
     bool operator!=(const String &other) const;
     void operator+=(const String &other);
 
-    const_iterator begin();
-    const_iterator end();
+    const_iterator begin() const;
+    const_iterator end() const;
 
     size_t size() const;
 
