@@ -40,9 +40,9 @@ File::File(const std::string name) : mName(name)
 File::File(File &&other): mName(std::move(other.mName))
 {}
 
-std::future<std::vector<String> *> File::readAsync(std::vector<String> *result) const
+std::future<std::vector<String>> File::readAsync() const
 {
-    return std::async(std::launch::async, &File::internalRead, this, result);
+    return std::async(std::launch::async, &File::internalRead, this);
 }
 
 std::future<void> File::writeAsync(const std::vector<String> &input) const
@@ -50,9 +50,10 @@ std::future<void> File::writeAsync(const std::vector<String> &input) const
     return std::async(std::launch::async, &File::internalWrite, this, input);
 }
 
-std::vector<String> *File::internalRead(std::vector<String> *result) const
+std::vector<String> File::internalRead() const
 {
     std::string line;
+    std::vector<String> result;
     std::ifstream myStream(mName);
 
     if (!myStream.good()) {
@@ -62,7 +63,7 @@ std::vector<String> *File::internalRead(std::vector<String> *result) const
     while (myStream.good()) {
         getline(myStream, line);
         if (!myStream.eof()) { // don't push empty string in the result
-            result->push_back(String(line.c_str()));
+            result.push_back(String(line.c_str()));
         }
     }
     myStream.close();
@@ -93,8 +94,7 @@ const std::string& File::getName() const
 size_t File::size() const
 {
     size_t totalSize = 0;
-    std::vector<String> content;
-    internalRead(&content);
+    auto content = internalRead();
     for (auto line : content) {
         totalSize += line.size();
     }

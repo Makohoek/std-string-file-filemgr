@@ -150,11 +150,12 @@ TEST_CASE("read a file asynchronously", "[file]")
     File myFile("examples/lorem.txt");
     std::cout << "before start read..." << std::endl;
 
-    std::vector<String> result;
-    auto f = myFile.readAsync(&result);
+    auto f = myFile.readAsync();
 
     std::cout << "Waiting read result..." << std::endl;
     f.wait();
+
+    auto result = f.get();
 
     std::vector<String> expectedResult {
         "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod",
@@ -175,9 +176,8 @@ TEST_CASE("read a file asynchronously", "[file]")
 TEST_CASE("read an invalid file", "[file]")
 {
     File myFile("examples/inaccessible");
-    std::vector<String> result;
 
-    auto f = myFile.readAsync(&result);
+    auto f = myFile.readAsync();
     f.wait();
 
     REQUIRE_THROWS_AS(f.get(), std::ifstream::failure);
@@ -221,7 +221,7 @@ TEST_CASE("write and read a file asynchronously", "[file]")
     auto writeDone = myFile.writeAsync(fileContent);
     /* Client *MUST* handle the synchronization between read/write */
     writeDone.wait();
-    auto readDone = myFile.readAsync(&result);
+    auto readDone = myFile.readAsync();
     readDone.wait();
 
     unsigned int index = 0;

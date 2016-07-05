@@ -42,7 +42,7 @@ public:
     File(const File& other) = delete;
     File operator=(const File& other) = delete;
 
-    std::future<std::vector<String> *> readAsync(std::vector<String> *result) const;
+    std::future<std::vector<String>> readAsync() const;
     std::future<void> writeAsync(const std::vector<String> &input) const;
 
     size_t size() const;
@@ -53,6 +53,6 @@ public:
 
 private:
     std::string mName;
-    std::vector<String> *internalRead(std::vector<String> *result) const;
+    std::vector<String> internalRead() const;
     void internalWrite(const std::vector<String> &input) const;
 };
